@@ -3,7 +3,8 @@
 -- Write a SQL query to fetch all the duplicate records from a table.
 -- Note: Record is considered duplicate if a user name is present more than once.
 
-create table if exists users
+drop table if exists users
+create table users
 (
 user_id int primary key,
 user_name varchar(30) not null,
@@ -18,8 +19,13 @@ insert into users values
 
 select * from users;
 
--- My approach:
-with partitioned as 
+-- Solution:
+
+-- Approach: Partition the data based on user name and then give a row number to each of the partitioned user name. 
+-- If a user name exists more than once then it would have multiple row numbers. 
+-- Using the row number which is other than 1, we can identify the duplicate records.
+
+with partitioned_users as 
 (
 select	*,
 		row_number() over (partition by user_name order by user_id) as rn
@@ -28,12 +34,13 @@ from	users)
 select	user_id,
 		user_name,
 		email
-from	partitioned
+from	partitioned_users
 where	rn > 1;
 
 -- Output:
 -- "user_id"	"user_name"	"email"
 -- 5	"Robin"	"robin@gmail.com"
+
 
 -- Query 2:
 
@@ -99,15 +106,19 @@ select * from employee;
 
 -- My Solution:
 
+with ranked_employee as
+(
+	select	*,
+			dense_rank() over (partition by dept_name order by salary) as rn_min,
+			dense_rank() over (partition by dept_name order by salary DESC) as rn_max
+	from	employee
+)
 select	emp_id,
 		emp_name,
 		dept_name,
 		salary
-from	(select	*,
-				dense_rank() over (partition by dept_name order by salary DESC) as rn_max,
-				dense_rank() over (partition by dept_name order by salary ASC) as rn_min
-		from	employee) as y
-where	y.rn_max = 1 or y.rn_min = 1;
+from	ranked_employee
+where	rn_min = 1 or rn_max = 1;
 
 -- Toufiq's solution:
 
@@ -156,10 +167,10 @@ select	d1.name,
 		d1.speciality,
 		d1.hospital
 from	doctors as d1
-join	doctors as d2
-		on	d1.id != d2.id 
-			and d1.hospital = d2.hospital 
-			and d1.speciality != d2.speciality
+		join doctors as d2
+			 on	 d1.id != d2.id 
+				 and d1.hospital = d2.hospital 
+				 and d1.speciality != d2.speciality
 
 
 -- Query 5:
@@ -305,7 +316,7 @@ from	next_prev_student;
 
 -- Note: Weather is considered to be extremely cold then its temperature is less than zero.
 
---Table Structure:
+-- Table Structure:
 
 drop table if exists weather;
 create table weather
@@ -357,16 +368,16 @@ filtered_weather as
 (
 	select	*,
 			case when temperature < 0
-					and  lead(temperature) over (order by id) < 0
-					and  lead(temperature, 2) over (order by id) < 0
+					and  lead(temperature) over (order by day) < 0
+					and  lead(temperature, 2) over (order by day) < 0
 				 then 'Yes'
 				 when temperature < 0
-					and  lag(temperature) over (order by id) < 0
-					and  lead(temperature) over (order by id) < 0
+					and  lag(temperature) over (order by day) < 0
+					and  lead(temperature) over (order by day) < 0
 				 then 'Yes'
 				 when temperature < 0
-					and  lag(temperature) over (order by id) < 0
-					and  lag(temperature, 2) over (order by id) < 0
+					and  lag(temperature) over (order by day) < 0
+					and  lag(temperature, 2) over (order by day) < 0
 				 then 'Yes'
 				 else null
 			end as cons_cold_flag
@@ -579,7 +590,7 @@ grouped_cleaned_patient_logs as
 	select	month,
 			account_id,
 			count(1) as no_of_patient
-	from	cleaned_patient_logs as cpl
+	from	cleaned_patient_logs
 	group	by month, account_id
 ),
 ranked_grouped_cleaned_patient_logs as
