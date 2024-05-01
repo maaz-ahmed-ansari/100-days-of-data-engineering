@@ -11,3 +11,19 @@ Problems to Review:
 - https://leetcode.com/problems/customer-who-visited-but-did-not-make-any-transactions/description/?envType=study-plan-v2&envId=top-sql-50
 
 - https://leetcode.com/problems/rising-temperature/editorial/?envType=study-plan-v2&envId=top-sql-50
+
+- https://leetcode.com/problems/average-time-of-process-per-machine/?envType=study-plan-v2&envId=top-sql-50
+
+- https://leetcode.com/problems/employee-bonus/editorial/?envType=study-plan-v2&envId=top-sql-50
+
+
+Interview Query
+
+- https://www.interviewquery.com/questions/completed-shipments
+
+- https://www.interviewquery.com/questions/top-three-salaries
+
+- https://www.interviewquery.com/questions/random-sql-sample
+(https://wiki.postgresql.org/wiki/TABLESAMPLE_Implementation#:~:text=TABLESAMPLE%20is%20a%20query%20dealing,they%20are%20ANSI%20SQL%20required.)
+
+- https://www.interviewquery.com/questions/employee-salaries ***vimp
