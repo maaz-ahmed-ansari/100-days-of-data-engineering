@@ -1,0 +1,14 @@
+services:
+  pyspark:
+    image: "jupyter/pyspark-notebook"
+    volumes:
+      - C:\Users\maaza\OneDrive\Desktop\100 Days of DE\100-days-of-data-engineering\Day-11-pyspark\data:/var/lib/jupyter-pyspark/data:rw
+    ports:
+      - 8888:8888
+      - 4040:4040
+    networks:
+      - network2
+networks:
+  network2:
+    name: pyspark-network
+    external: true
