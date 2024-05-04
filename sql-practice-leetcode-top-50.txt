@@ -16,6 +16,10 @@ Problems to Review:
 
 - https://leetcode.com/problems/employee-bonus/editorial/?envType=study-plan-v2&envId=top-sql-50
 
+- https://leetcode.com/problems/students-and-examinations/submissions/1248811595/?envType=study-plan-v2&envId=top-sql-50 ***vimp
+
+- https://leetcode.com/problems/confirmation-rate/submissions/1248846400/?envType=study-plan-v2&envId=top-sql-50 ***vimp
+
 
 Interview Query
 
