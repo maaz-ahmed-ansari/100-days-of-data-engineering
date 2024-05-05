@@ -31,3 +31,10 @@ Interview Query
 (https://wiki.postgresql.org/wiki/TABLESAMPLE_Implementation#:~:text=TABLESAMPLE%20is%20a%20query%20dealing,they%20are%20ANSI%20SQL%20required.)
 
 - https://www.interviewquery.com/questions/employee-salaries ***vimp
+
+
+DataLemur
+
+- https://datalemur.com/questions/sql-histogram-tweets
+
+- 
